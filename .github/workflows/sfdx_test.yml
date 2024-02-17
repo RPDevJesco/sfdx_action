@@ -1,4 +1,4 @@
-name: sfdx_action
+name: Salesforce SFDX Action
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
           version: 'latest'
 
       - name: Authenticate with Salesforce
-        run: sfdx force:auth:jwt:grant --clientid ${{ secrets.SFDX_CLIENT_ID }} --jwtkeyfile ${{secrets.JWT}} --username ${{ secrets.SFDX_USERNAME }} --setdefaultdevhubusername --setalias my-hub-org
+        run: sfdx force:auth:jwt:grant --clientid ${{ secrets.SFDX_CLIENT_ID }} --jwtkeyfile ${{ secrets.JWT }} --username ${{ secrets.SFDX_USERNAME }} --setdefaultdevhubusername --setalias my-hub-org
 
       - name: Create Scratch Org
         run: |
