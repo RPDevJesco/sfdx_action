@@ -23,7 +23,7 @@ jobs:
 
       - name: Authenticate with Salesforce
         run: |
-          echo "${{ secrets.PRIVATE_KEY }}" > server.key
+          echo "${{ secrets.JWT }}" > server.key
           sfdx force:auth:jwt:grant --clientid ${{ secrets.SFDX_CLIENT_ID }} --jwtkeyfile server.key --username ${{ secrets.SFDX_USERNAME }} --setdefaultdevhubusername --setalias my-hub-org
 
       - name: Create Scratch Org
