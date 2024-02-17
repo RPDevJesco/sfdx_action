@@ -24,7 +24,7 @@ jobs:
       - name: Authenticate with Salesforce
         run: |
           echo "${{ secrets.JWT }}" > server.key
-          sfdx force:auth:jwt:grant --client-id ${{ secrets.SFDX_CLIENT_ID }} --jwtkeyfile server.key --username ${{ secrets.SFDX_USERNAME }} --set-default-dev-hub --jwtkeyfiletype HS256
+          sfdx force:auth:jwt:grant --client-id ${{ secrets.SFDX_CLIENT_ID }} --jwtkeyfile server.key --username ${{ secrets.SFDX_USERNAME }} --set-default-dev-hub --jwtkeyfiletype=HS256
 
       - name: Create Scratch Org
         run: |
