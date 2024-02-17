@@ -20,13 +20,13 @@ jobs:
 
       - name: Install Salesforce CLI
         run: npm install -g sfdx-cli
-
+        
       - name: Authenticate with Salesforce
         env:
-          SF_USERNAME: ${{ secrets.SFDX_USERNAME }}
-          SF_PASSWORD: ${{ secrets.SFDX_PASSWORD }}
+          SF_USERNAME: ${{ secrets.SF_USERNAME }}
+          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
         run: |
-          sfdx force:auth:web:login -u $SF_USERNAME -p $SF_PASSWORD --setalias my-hub-org --instanceurl https://login.salesforce.com --setdefaultusername
+          sfdx force:auth:web:login -u $SF_USERNAME -p $SF_PASSWORD --instanceurl https://login.salesforce.com --setalias my-hub-org --setdefaultusername
 
       - name: Create Scratch Org
         run: |
