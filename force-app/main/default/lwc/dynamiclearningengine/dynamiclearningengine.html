@@ -1,0 +1,24 @@
+<!--
+ - Created by jglov on 2/2/2024.
+ -->
+
+<template>
+    <div class="slds-m-around_medium">
+        <!-- Help icon to toggle module visibility -->
+        <lightning-button-icon icon-name="utility:help"
+                               alternative-text="Help"
+                               title="Help"
+                               onclick={toggleModuleDisplay}
+                               class="slds-m-bottom_small">
+        </lightning-button-icon>
+
+        <!-- Conditional rendering based on currentModuleType -->
+        <template if:true={isTextModule}>
+            <c-textmodule content={textModuleText}></c-textmodule>
+        </template>
+        <template if:true={isVideoModule}>
+            <c-videomodule video-url={videoModuleSrc}></c-videomodule>
+        </template>
+        <!-- Add more module types as needed -->
+    </div>
+</template>

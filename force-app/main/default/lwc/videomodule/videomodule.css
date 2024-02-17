@@ -1,0 +1,13 @@
+/**
+ * Created by jglov on 2/2/2024.
+ */
+.video-container {
+    max-width: 100%;
+    margin: auto;
+    padding: 10px;
+}
+
+video {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+}

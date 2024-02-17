@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="Azure Kanban Board Test" icon-name="custom:custom63" class="slds-grid slds-grow">
+        <div style="width: 100%; display: flex; justify-content: space-between">
+            <div class="myPaletteDiv" style="width: 100px; margin-right: 2px; background-color: rgb(40, 44, 52); position: relative;">
+                <canvas tabindex="0" style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; touch-action: none; width: 100px; height: 750px;" width="100" height="750"></canvas>
+                <div style="position: absolute; overflow: auto; width: 100px; height: 750px; z-index: 1;">
+                    <div style="position: absolute; width: 1px; height: 1px;"></div>
+                </div>
+            </div>
+            <div class="myDiagramDiv" style="flex-grow: 1; height: 750px; width: 954px; background-color: rgb(40, 44, 52); position: relative;">
+                <canvas tabindex="0" style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; touch-action: none; width: 954px; height: 750px;" width="954" height="750"></canvas>
+                <div style="position: absolute; overflow: auto; width: 954px; height: 750px; z-index: 1;">
+                    <div style="position: absolute; width: 1px; height: 1px;"></div>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

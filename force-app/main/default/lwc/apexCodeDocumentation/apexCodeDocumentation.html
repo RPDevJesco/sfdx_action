@@ -1,0 +1,24 @@
+<!--
+ - Created by jglov on 9/13/2023.
+ -->
+
+<!-- Apex Code Documentation -->
+<template>
+    <lightning-card title="Apex Code Documentation" icon-name="custom:custom63" class="slds-grid slds-grow">
+        <template if:true={isLoading}>
+            <div class="slds-col slds-grow">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <template if:false={isLoading}>
+            <div class="slds-col slds-grow">
+                <lightning-datatable
+                        key-field="Id"
+                        data={documentationData}
+                        columns={columns}
+                        hide-checkbox-column="true">
+                </lightning-datatable>
+            </div>
+        </template>
+    </lightning-card>
+</template>
