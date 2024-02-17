@@ -1,0 +1,41 @@
+name: Salesforce SFDX Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Salesforce CLI
+        uses: salesforcecli/sfdx-cli-action@v1
+        with:
+          version: 'latest'
+
+      - name: Authenticate with Salesforce
+        run: sfdx force:auth:jwt:grant --clientid ${{ secrets.SFDX_CLIENT_ID }} --jwtkeyfile server.key --username ${{ secrets.SFDX_USERNAME }} --setdefaultdevhubusername --setalias my-hub-org
+
+      - name: Create Scratch Org
+        run: |
+          sfdx force:org:create -f config/project-scratch-def.json -s -d 30 -a my-scratch-org
+
+      - name: Push source code to Scratch Org
+        run: sfdx force:source:push -u my-scratch-org
+
+      - name: Run tests
+        id: run-tests
+        run: |
+          result=$(sfdx force:apex:test:run -u my-scratch-org --outputdir test-results --resultformat human)
+          echo "::set-output name=test-run-id::$(echo $result | grep -oP '(?<=\bTestId\b.*?\b).*(?=\b\])')"
+
+      - name: Create log file
+        run: sfdx force:apex:test:report -i ${{ steps.run-tests.outputs.test-run-id }} -u my-scratch-org --resultformat human > test-results/test-log.txt
+
+      - name: Show test results
+        run: cat test-results/test-log.txt
