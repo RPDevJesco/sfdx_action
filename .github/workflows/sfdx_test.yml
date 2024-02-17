@@ -1,4 +1,4 @@
-name: Salesforce SFDX Action
+name: sfdx_action
 
 on:
   push:
