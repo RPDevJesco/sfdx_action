@@ -22,9 +22,11 @@ jobs:
         run: npm install -g sfdx-cli
 
       - name: Authenticate with Salesforce
+        env:
+          SF_USERNAME: ${{ secrets.SF_USERNAME }}
+          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
         run: |
-          echo "${{ secrets.JWT }}" > server.key
-          sfdx force:auth:jwt:grant --client-id ${{ secrets.SFDX_CLIENT_ID }} --jwtkeyfile server.key --username ${{ secrets.SFDX_USERNAME }} --set-default-dev-hub
+          sfdx force:auth:web:login -u $SF_USERNAME -p $SF_PASSWORD --setalias my-hub-org --instanceurl https://login.salesforce.com --setdefaultusername
 
       - name: Create Scratch Org
         run: |
