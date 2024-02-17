@@ -25,7 +25,7 @@ jobs:
         env:
           SF_USERNAME: ${{ secrets.SFDX_CLIENT_ID }}
         run: |
-          sf org login web --instanceurl https://login.salesforce.com --setalias my-hub-org --setdefaultusername --client-id ${{ secrets.SFDX_CLIENT_ID }}
+          sfdx force:auth:web:login --instanceurl https://login.salesforce.com --setalias my-hub-org --setdefaultusername --client-id ${{ secrets.SFDX_CLIENT_ID }}
 
       - name: Create Scratch Org
         run: |
