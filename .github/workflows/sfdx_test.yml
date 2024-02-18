@@ -29,7 +29,7 @@ jobs:
 
       - name: Create Scratch Org
         run: |
-          sfdx force:org:create -s -d 30 -a my-scratch-org -v ${{ secrets.SFDX_USERNAME }}
+          sfdx force:org:create -s -d 30 -a my-scratch-org -v ${{ secrets.SFDX_DEV_HUB_USERNAME }}
 
       - name: Push source code to Scratch Org
         run: sfdx force:source:push -u my-scratch-org
