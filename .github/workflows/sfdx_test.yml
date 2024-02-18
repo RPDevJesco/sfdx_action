@@ -23,11 +23,11 @@ jobs:
         
       - name: Authenticate with Salesforce Dev Hub
         run: |
-          sfdx auth:web:login --instance-url https://login.salesforce.com --set-alias my-dev-hub --set-default-dev-hub --client-id ${{ secrets.SFDX_CLIENT_ID }}
+          sfdx auth:web:login --instance-url https://login.salesforce.com --alias my-dev-hub --set-default-dev-hub --client-id ${{ secrets.SFDX_CLIENT_ID }}
 
       - name: Authenticate with Salesforce
         run: |
-          sfdx auth:web:login --instance-url https://login.salesforce.com --set-alias my-hub-org --set-default --client-id ${{ secrets.SFDX_CLIENT_ID }}
+          sfdx auth:web:login --instance-url https://login.salesforce.com --alias my-hub-org --set-default --client-id ${{ secrets.SFDX_CLIENT_ID }}
 
       - name: Create Scratch Org
         run: |
