@@ -19,27 +19,25 @@ jobs:
           node-version: '20'
 
       - name: Install Salesforce CLI
-        run: npm install -g sfdx-cli
-        
-      - name: Authenticate with Salesforce Dev Hub
-        run: |
-          sfdx auth:web:login --instance-url https://login.salesforce.com --alias my-dev-hub --set-default-dev-hub --client-id ${{ secrets.SFDX_CLIENT_ID }}
+        run: npm install -g @salesforce/cli
 
-      - name: Create Scratch Org
-        run: |
-          sfdx force:org:create --durationdays 30 --setalias my-scratch-org --definitionfile config/project-scratch-def.json --setdefaultusername --targetdevhubusername ${{ secrets.SFDX_USERNAME }}
+      - name: Authenticate with Salesforce
+        run: sfdx force:auth:web:login -u ${{ secrets.SFDX_USERNAME }} -p ${{ secrets.SFDX_PASSWORD }}
 
-      - name: Push source code to Scratch Org
-        run: sfdx force:source:push -u my-scratch-org
+      - name: Create a new scratch org
+        run: sfdx force:org:create -s -f config/project-scratch-def.json -a scratch-org
+
+      - name: Push code to scratch org
+        run: sfdx force:source:push -u scratch-org
 
       - name: Run tests
-        id: run-tests
-        run: |
-          result=$(sfdx force:apex:test:run -u my-scratch-org --outputdir test-results --resultformat human)
-          echo "::set-output name=test-run-id::$(echo $result | grep -oP '(?<=\bTestId\b.*?\b).*(?=\b\])')"
+        run: sfdx force:apex:test:run -u scratch-org -c -w 10 -r human
 
-      - name: Create log file
-        run: sfdx force:apex:test:report -i ${{ steps.run-tests.outputs.test-run-id }} -u my-scratch-org --resultformat human > test-results/test-log.txt
+      - name: Create a log file
+        run: sfdx force:apex:test:run -u scratch-org --json > test-results.json
 
-      - name: Show test results
-        run: cat test-results/test-log.txt
+      - name: Display test results
+        run: cat test-results.json
+
+      - name: Delete the scratch org
+        run: sfdx force:org:delete -u scratch-org -p
