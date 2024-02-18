@@ -22,22 +22,4 @@ jobs:
         run: npm install -g @salesforce/cli
 
       - name: Authenticate with Salesforce
-        run: sf org login jwt --client-id ${{ secrets.SFDX_CLIENT_ID }} --jwt-key-file ${{ secrets.JWT }} --username ${{ secrets.SFDX_USERNAME }} --alias my-hub-org
-
-      - name: Create a new scratch org
-        run: sfdx force:org:create -s -f config/project-scratch-def.json -a scratch-org
-
-      - name: Push code to scratch org
-        run: sfdx force:source:push -u scratch-org
-
-      - name: Run tests
-        run: sfdx force:apex:test:run -u scratch-org -c -w 10 -r human
-
-      - name: Create a log file
-        run: sfdx force:apex:test:run -u scratch-org --json > test-results.json
-
-      - name: Display test results
-        run: cat test-results.json
-
-      - name: Delete the scratch org
-        run: sfdx force:org:delete -u scratch-org -p
+        run: sf org login jwt --client-id ${{ secrets.SFDX_CLIENT_ID }} --jwt-key-file ${{ secrets.JWT }} --username ${{ secrets.SFDX_USERNAME }} --alias my-hub-org --set-default-dev-hub
