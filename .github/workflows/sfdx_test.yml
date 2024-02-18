@@ -22,4 +22,4 @@ jobs:
         run: npm install -g @salesforce/cli
 
       - name: Authenticate with Salesforce
-        run: sf org login jwt --client-id ${{ secrets.SFDX_CLIENT_ID }} --jwt-key-file ${{ secrets.JWT }} --username ${{ secrets.SFDX_USERNAME }} --alias my-hub-org --set-default-dev-hub
+        run: sf org login jwt --username ${{ secrets.SFDX_USERNAME }} --jwt-key-file ${{ secrets.JWT }} --client-id ${{ secrets.SFDX_CLIENT_ID }}
