@@ -22,7 +22,7 @@ jobs:
         run: npm install -g @salesforce/cli
 
       - name: Authenticate with Salesforce
-        run: sfdx force:auth:web:login -u ${{ secrets.SFDX_USERNAME }} -p ${{ secrets.SFDX_PASSWORD }}
+        run: sf org login jwt --client-id ${{ secrets.SFDX_CLIENT_ID }} --jwt-key-file ${{ secrets.JWT }} --username ${{ secrets.SFDX_USERNAME }} --alias my-hub-org
 
       - name: Create a new scratch org
         run: sfdx force:org:create -s -f config/project-scratch-def.json -a scratch-org
