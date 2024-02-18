@@ -22,18 +22,16 @@ jobs:
         run: npm install -g sfdx-cli
         
       - name: Authenticate with Salesforce Dev Hub
-        env:
-          SF_USERNAME: ${{ secrets.SFDX_CLIENT_ID }}
         run: |
-          sfdx force:auth:web:login --instanceurl https://login.salesforce.com --setalias my-dev-hub --setdefaultdevhubusername --client-id ${{ secrets.SFDX_CLIENT_ID }}
+          sfdx auth:web:login --instance-url https://login.salesforce.com --set-alias my-dev-hub --set-default-dev-hub --client-id ${{ secrets.SFDX_CLIENT_ID }}
 
       - name: Authenticate with Salesforce
         run: |
-          sfdx force:auth:web:login --instanceurl https://login.salesforce.com --setalias my-hub-org --setdefaultusername --client-id ${{ secrets.SFDX_CLIENT_ID }}
+          sfdx auth:web:login --instance-url https://login.salesforce.com --set-alias my-hub-org --set-default --client-id ${{ secrets.SFDX_CLIENT_ID }}
 
       - name: Create Scratch Org
         run: |
-          sfdx force:org:create -d 30 -a my-scratch-org -f config/project-scratch-def.json
+          sfdx force:org:create -d 30 -a my-scratch-org -f config/project-scratch-def.json -v ${{ secrets.SFDX_USERNAME }}
 
       - name: Push source code to Scratch Org
         run: sfdx force:source:push -u my-scratch-org
