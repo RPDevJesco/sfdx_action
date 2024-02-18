@@ -27,6 +27,10 @@ jobs:
         run: |
           sfdx force:auth:web:login --instanceurl https://login.salesforce.com --setalias my-hub-org --setdefaultusername --client-id ${{ secrets.SFDX_CLIENT_ID }}
 
+      - name: Set Default Dev Hub Org
+        run: |
+          sfdx force:config:set defaultdevhubusername=<your-dev-hub-username>
+
       - name: Create Scratch Org
         run: |
           sfdx force:org:create -d 30 -a my-scratch-org -f config/project-scratch-def.json
