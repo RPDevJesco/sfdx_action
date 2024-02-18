@@ -29,7 +29,7 @@ jobs:
 
       - name: Create Scratch Org
         run: |
-          sf org create scratch -d 30 -a my-scratch-org -f config/project-scratch-def.json
+          sfdx force:org:create -d 30 -a my-scratch-org -f config/project-scratch-def.json
 
       - name: Push source code to Scratch Org
         run: sfdx force:source:push -u my-scratch-org
