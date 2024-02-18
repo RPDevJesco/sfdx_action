@@ -21,11 +21,5 @@ jobs:
       - name: Install Salesforce CLI
         run: npm install -g @salesforce/cli
 
-      - name: Write JWT key file
-        run: echo "${{ secrets.JWT }}" > jwt.key
-
       - name: Authenticate with Salesforce
-        run: sf org login jwt --username ${{ secrets.SFDX_USERNAME }} --client-id ${{ secrets.SFDX_CLIENT_ID }} --jwt-key-file jwt.key
-
-      - name: Remove JWT key file
-        run: rm jwt.key
+        run: sf org login --client-id ${{ secrets.SFDX_CLIENT_ID }} --set-default-dev-hub --alias my-hub-org
